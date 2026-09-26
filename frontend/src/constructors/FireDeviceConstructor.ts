@@ -1,4 +1,5 @@
 import type { FireDevice } from "../types/FireDevice";
+import type { MaintenanceResult } from "../types/MaintenanceResult";
 
 export const createDefaultFireDevice = (overrides: Partial<FireDevice> = {}): FireDevice => ({
   id: 1 as never,
@@ -15,3 +16,17 @@ export const createDefaultFireDevice = (overrides: Partial<FireDevice> = {}): Fi
 
 export const createFireDeviceForm = createDefaultFireDevice;
 export const createFireDeviceResponse = createDefaultFireDevice;
+
+export const createMaintenanceResult = (overrides: Partial<MaintenanceResult> = {}): MaintenanceResult => ({
+  device_id: 0,
+  device_code: "",
+  result_status: "UPDATED",
+  building_id: 0,
+  building_name: "",
+  floor: "",
+  hazard_ticket_ids: [],
+  previous_next_maintenance_at: "",
+  next_maintenance_at: "",
+  message: "",
+  ...overrides
+});

@@ -61,6 +61,28 @@ export const mockData = {
       "install_date": "2026-06-13T09:00:00Z",
       "status": "PLANNED",
       "next_maintenance_at": "2026-06-13T09:00:00Z"
+    },
+    {
+      "id": 4,
+      "building_id": 1,
+      "device_code": "device code 4",
+      "device_type": "EXTINGUISHER",
+      "floor": "floor 2",
+      "location_desc": "location desc 4",
+      "install_date": "2026-06-14T09:00:00Z",
+      "status": "PLANNED",
+      "next_maintenance_at": "2026-10-15T09:00:00Z"
+    },
+    {
+      "id": 5,
+      "building_id": 2,
+      "device_code": "device code 5",
+      "device_type": "EXIT_LIGHT",
+      "floor": "floor 2",
+      "location_desc": "location desc 5",
+      "install_date": "2026-06-15T09:00:00Z",
+      "status": "PLANNED",
+      "next_maintenance_at": "2028-01-01T09:00:00Z"
     }
   ],
   "inspectionTask": [
@@ -144,7 +166,7 @@ export const mockData = {
       "severity": "severity 2",
       "owner_id": 2,
       "deadline": "deadline 2",
-      "rectify_status": "SUBMITTED",
+      "rectify_status": "CLOSED",
       "rectify_note": "rectify note 2",
       "closed_at": "2026-06-12T09:00:00Z"
     },
@@ -154,7 +176,7 @@ export const mockData = {
       "severity": "severity 3",
       "owner_id": 3,
       "deadline": "deadline 3",
-      "rectify_status": "PLANNED",
+      "rectify_status": "CLOSED",
       "rectify_note": "rectify note 3",
       "closed_at": "2026-06-13T09:00:00Z"
     }
