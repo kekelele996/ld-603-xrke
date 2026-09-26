@@ -9,7 +9,8 @@ LOG_TEMPLATES = {
     "FireDevice.create",
     "FireDevice.update",
     "FireDevice.status",
-    "FireDevice.export"
+    "FireDevice.export",
+    "FireDevice.maintenance"
   ],
   "InspectionTask": [
     "InspectionTask.create",

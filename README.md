@@ -57,6 +57,19 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 - DeviceType: constants/DeviceType、types/DeviceType、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - InspectionStatus: constants/InspectionStatus、types/InspectionStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - HazardSeverity: constants/HazardSeverity、types/HazardSeverity、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- MaintenanceInterval（灭火器30/消火栓90/烟感180/喷淋365/应急灯365 天）：后端 `constants/maintenance_interval.py`、前端 `constants/MaintenanceInterval.ts`，被 `services/maintenance_service.py`、`utils/maintenance.ts`、设备台账页周期列共同引用。
+
+## 设备维保批量登记（台账处理）
+
+入口：消防设备台账 `/devices`，勾选多台设备后点击「登记维保」。
+
+1. 下次维保日期按设备类型周期从登记日期顺延：灭火器 30 天、消火栓 90 天、烟感 180 天、喷淋 365 天、应急灯 365 天；原计划日期更晚时保留原计划，不提前。
+2. 设备所在楼栋同层存在未关闭隐患单（`rectify_status != CLOSED` 且 `closed_at` 为空，经 `inspectionResult.device_id` 关联同层设备）时，只跳过这一台，结果中写明楼栋、楼层与隐患单号（`ticket_no`，如 YH-2026-0002），其余设备照常写入。
+3. 设备页「到期筛选」可筛出已到期设备（下次维保日期 ≤ 今天）。
+4. 新日期和每台登记结果通过 `POST /api/maintenance/register` 写入内存库；前端同时用 localStorage 覆盖层保存，重新进入页面仍能看到新日期和最近一次每台结果，后端离线时自动回退到同规则的本地实现。
+
+后端触点：`constants/maintenance_interval.py`、`types/maintenance_payload.py`、`constructors/maintenance_factory.py`、`services/maintenance_service.py`、`controllers/maintenance_controller.py`、`routes/maintenance_routes.py`、`utils/date_utils.py`、`repositories/*`。
+前端触点：`api/Maintenance.ts`、`stores/MaintenanceStore.ts`、`types/Maintenance.ts`、`constructors/MaintenanceConstructor.ts`、`utils/maintenance.ts`、`utils/maintenanceStorage.ts`、`pages/DevicesPage.tsx`。
 
 ## 为什么会牵一发动全身
 

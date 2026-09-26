@@ -8,3 +8,4 @@ class HazardTicket(BaseModel):
     rectify_status: str
     rectify_note: str
     closed_at: str
+    ticket_no: str = ""

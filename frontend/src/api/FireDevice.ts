@@ -1,18 +1,20 @@
 import { mockData } from "../mocks/seedData";
 import type { FireDevice } from "../types/FireDevice";
+import { applyDeviceOverlay } from "../utils/maintenanceStorage";
 
 const endpoint = "/api/fire-device";
 
-export async function listFireDevice(): Promise<FireDevice[]> {
-  if (typeof fetch !== "undefined" && endpoint.startsWith("/api") && true) {
+export async function listFireDevice(due = false): Promise<FireDevice[]> {
+  const query = due ? "?due=true" : "";
+  if (typeof fetch !== "undefined") {
     try {
-      const res = await fetch(endpoint);
-      if (res.ok) return await res.json();
+      const res = await fetch(`${endpoint}${query}`);
+      if (res.ok) return applyDeviceOverlay(((await res.json()) as FireDevice[]) ?? []);
     } catch {
       // Local mock fallback keeps the UI available during offline review.
     }
   }
-  return [...(mockData.fireDevice as unknown as FireDevice[])];
+  return applyDeviceOverlay([...(mockData.fireDevice as unknown as FireDevice[])]);
 }
 
 export async function saveFireDevice(payload: FireDevice) {

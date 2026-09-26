@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS fire_device (
   location_desc TEXT,
   install_date TEXT,
   status TEXT,
-  next_maintenance_at TEXT
+  next_maintenance_at TEXT,
+  last_maintenance_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS inspection_task (
@@ -50,7 +51,8 @@ CREATE TABLE IF NOT EXISTS hazard_ticket (
   deadline TEXT,
   rectify_status TEXT,
   rectify_note TEXT,
-  closed_at TEXT
+  closed_at TEXT,
+  ticket_no TEXT
 );
 
 CREATE TABLE IF NOT EXISTS audit_log (

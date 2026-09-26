@@ -9,3 +9,4 @@ class FireDevice(BaseModel):
     install_date: str
     status: str
     next_maintenance_at: str
+    last_maintenance_at: str = ""

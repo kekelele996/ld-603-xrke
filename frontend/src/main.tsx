@@ -1,12 +1,13 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { routes } from "./router/routes";
 import { mockData } from "./mocks/seedData";
 import { StatusBadge } from "./components/common/StatusBadge";
 import { StatCard } from "./components/common/StatCard";
+import { DevicesPage } from "./pages/DevicesPage";
 import "./styles.css";
 
-function Page({ name }: { name: string }) {
+function OverviewPage({ name }: { name: string }) {
   const entities = Object.entries(mockData);
   const total = useMemo(() => entities.reduce((sum, [, rows]) => sum + rows.length, 0), [entities]);
   return <main className="page">
@@ -39,6 +40,11 @@ function Page({ name }: { name: string }) {
   </main>;
 }
 
+function Page({ name, route }: { name: string; route: string }) {
+  if (route === "/devices") return <DevicesPage />;
+  return <OverviewPage name={name} />;
+}
+
 function App() {
   const [active, setActive] = useState<string>(routes[0]?.route ?? "/dashboard");
   const current = routes.find((route) => route.route === active) ?? routes[0];
@@ -47,7 +53,7 @@ function App() {
       <div className="brand">消防设施巡检维保平台</div>
       <nav>{routes.map((route) => <button key={route.route} className={active === route.route ? "active" : ""} onClick={() => setActive(route.route)}>{route.name}</button>)}</nav>
     </aside>
-    <Page name={current?.name ?? "工作台"} />
+    <Page name={current?.name ?? "工作台"} route={current?.route ?? "/dashboard"} />
   </div>;
 }
 

@@ -7,4 +7,5 @@ export interface HazardTicket {
   rectify_status: string;
   rectify_note: string;
   closed_at: string;
+  ticket_no?: string;
 }
